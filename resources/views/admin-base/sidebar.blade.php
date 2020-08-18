@@ -11,6 +11,8 @@
                 <li><a href="{{url('/category')}}" class="{{ request()->is('category') ? 'active' : '' }}"><i class="lnr lnr-list"></i> <span> Category</span></a></li>
                 <li><a href="{{url('/produk')}}" class="{{ request()->is('produk') ? 'active' : '' }}"><i class="lnr lnr-diamond"></i> <span> Sample Product</span></a></li>
                 <hr>
+                <li><a href="{{route('order')}}" class="{{ request()->is('order') ? 'active' : '' }}"><i class="lnr lnr-diamond"></i> <span> Project</span></a></li>
+                <li><a href="{{route('order.create')}}" class="{{ request()->is('order/create') ? 'active' : '' }}"><i class="lnr lnr-diamond"></i> <span> Add Project</span></a></li>
             </ul>
         </nav>
     </div>

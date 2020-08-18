@@ -24,3 +24,7 @@ Route::resource('/team', 'UserController');
 Route::resource('/customer', 'CustomerController');
 Route::resource('/category', 'CategoryController');
 Route::resource('/produk', 'ProdukController');
+//order
+Route::get('/order/create', 'OrdersController@create')->name('order.create');
+Route::post('/order/create', 'OrdersController@store')->name('order.store');
+Route::get('/order', 'OrdersController@index')->name('order');
