@@ -45,11 +45,11 @@
                         </div>
                         <div class="panel-body">
                             @csrf
-                            <table id="datatable" class="table table-bordered table-hover">
+                            <table id="datatable" class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Created By</th>
+                                        {{-- <th>Created By</th> --}}
                                         <th>Customer</th>
                                         <th>DP</th>
                                         <th>Sample Project</th>
@@ -65,7 +65,7 @@
                                     @foreach ($orders as $order)
                                     <tr>
                                         <td>{{ $order->id ?? '' }}</td>
-                                        <td>{{ $order->marketing->name ?? '' }}</td>
+                                        {{-- <td>{{ $order->marketing->name ?? '' }}</td> --}}
                                         <td>{{ $order->customers->name ?? '' }}</td>
                                         <td>Rp {{ number_format($order->dp) ?? '0' }}</td>
                                         <td>{{ $order->sample ?? '' }}</td>

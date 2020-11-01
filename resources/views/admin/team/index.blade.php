@@ -6,7 +6,15 @@
     <!-- MAIN CONTENT -->
     <div class="main-content">
         <div class="container-fluid">
-            <h3 class="page-title">Our Team</h3>
+            <div class="row">
+                <div class="col-md-10">
+                    <h3 class="page-title">Our Team</h3>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fa fa-check-circle"></i> Add Data</a>
+                </div>
+            </div>
+            
             <div class="row">
                 <div class="col-md-12">
                     @if (session('status'))
@@ -43,11 +51,10 @@
                             <div class="col-md-10">
                             </div>
                             <div class="col-md-2">
-                                <a class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fa fa-check-circle"></i> Add Data</a>
-                            </div><br>
+                            </div>
                         </div>
                         <div class="panel-body">
-                            <table id="datatable" class="table table-striped">
+                            <table id="datatable" class="table display responsive">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -58,7 +65,51 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $item)
+                                    @foreach ($data->where('role', '=', 'admin') as $item)
+                                    <tr>
+                                        <td>{{$item->id}}</td>
+                                        <td>{{$item->name}}</td>
+                                        <td>{{$item->email}}</td>
+                                        <td>{{$item->role}}</td>
+                                        @if (Auth::user()->role == 'admin')
+                                        <td style="text-align:center;">
+                                            <button type="button" class="btn btn-info" id="edit-item" 
+                                                data-item-id="{{$item->id}}"
+                                                data-item-name="{{$item->name}}"
+                                                data-item-email="{{$item->email}}"
+                                                data-item-role="{{$item->role}}"
+                                                data-item-password="{{$item->password}}">
+                                                <span class="lnr lnr-pencil"></span>
+                                            </button>
+                                        </td>
+                                        @else
+                                        <td></td>
+                                        @endif
+                                    </tr>
+                                    @endforeach
+                                    @foreach ($data->where('role', '=', 'owner') as $item)
+                                    <tr>
+                                        <td>{{$item->id}}</td>
+                                        <td>{{$item->name}}</td>
+                                        <td>{{$item->email}}</td>
+                                        <td>{{$item->role}}</td>
+                                        @if (Auth::user()->role == 'owner')
+                                        <td style="text-align:center;">
+                                            <button type="button" class="btn btn-info" id="edit-item" 
+                                                data-item-id="{{$item->id}}"
+                                                data-item-name="{{$item->name}}"
+                                                data-item-email="{{$item->email}}"
+                                                data-item-role="{{$item->role}}"
+                                                data-item-password="{{$item->password}}">
+                                                <span class="lnr lnr-pencil"></span>
+                                            </button>
+                                        </td>
+                                        @else
+                                        <td></td>
+                                        @endif
+                                    </tr>
+                                    @endforeach
+                                    @foreach ($data->where('role', '!=', 'admin')->where('role', '!=', 'owner') as $item)
                                     <tr>
                                         <td>{{$item->id}}</td>
                                         <td>{{$item->name}}</td>
@@ -73,7 +124,6 @@
                                                 data-item-password="{{$item->password}}">
                                                 <span class="lnr lnr-pencil"></span>
                                             </button>
-                                            {{-- <a href="#" type="button" class="btn btn-info"><span class="lnr lnr-pencil"></span></a> --}}
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><span class="lnr lnr-trash"></span></button>
                                         </td>
                                     </tr>

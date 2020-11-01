@@ -64,9 +64,16 @@
 <body>
     <div class="login">
         <h1>Login</h1>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+            <i>{{ $error }}</i>
+            @endforeach
+        </div>
+        @endif
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <input type="email" placeholder="Email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required="required" autocomplete="email" autofocus>
+            <input id="email" type="email" placeholder="Email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required="required" autocomplete="email" autofocus>
             @error('email')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

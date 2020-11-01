@@ -13,6 +13,12 @@
                     <i class="fa fa-check-circle"></i> {{ session('status') }}
                 </div>
             @endif
+            @foreach ($errors->all() as $error)
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <i class="fa fa-check-circle"></i> {{ $error }}
+            </div>
+            @endforeach
             <div class="row">
                 <form action="{{route('order.store')}}" method="POST">
                     @csrf
@@ -39,12 +45,23 @@
                                 </div>
                                 <br>
                                 <div class="input-group">
+                                    <label>DP</label>
+                                    <input type="number" name="dp" class="form-control">
+                                </div>
+                                <br>
+                                <div class="input-group">
                                     <label>Description</label>
                                     <textarea name="desc" cols="32" rows="4" class="form-control"></textarea>
                                 </div>
                                 <br>
                                 <div class="input-group">
+                                    <label>Deadline</label>
+                                    <input type="date" name="deadline" class="form-control">
+                                </div>
+                                <br>
+                                <div class="input-group">
                                     <input type="text" name="status" value="0" hidden/>
+                                    <input type="text" name="marketing_id" value="{{Auth::id()}}" hidden/>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +119,7 @@
                     <div class="col-md-12">
                         <!-- END INPUT GROUPS -->
                                 <div class="col-md-4 col-md-offset-4">
-                                <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+                                <input class="btn btn-danger" type="submit" value="{{ trans('Save') }}">
                                 </div>
                     </div>
                 </form>

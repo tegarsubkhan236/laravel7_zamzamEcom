@@ -28,3 +28,4 @@ Route::resource('/produk', 'ProdukController');
 Route::get('/order/create', 'OrdersController@create')->name('order.create');
 Route::post('/order/create', 'OrdersController@store')->name('order.store');
 Route::get('/order', 'OrdersController@index')->name('order');
+Route::post('/order/action', 'OrdersController@store')->name('order.action');

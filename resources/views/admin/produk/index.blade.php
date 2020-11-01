@@ -6,7 +6,14 @@
     <!-- MAIN CONTENT -->
     <div class="main-content">
         <div class="container-fluid">
-            <h3 class="page-title">Sample Produk</h3>
+            <div class="row">
+                <div class="col-md-10">
+                    <h3 class="page-title">Portofolio</h3>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fa fa-check-circle"></i> Add Data</a>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     @if (session('status'))
@@ -40,11 +47,6 @@
                     <!-- BASIC TABLE -->
                     <div class="panel">
                         <div class="panel-heading">
-                            <div class="col-md-10">
-                            </div>
-                            <div class="col-md-2">
-                                <a class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fa fa-check-circle"></i>Add Data</a>
-                            </div><br>
                         </div>
                         <div class="panel-body">
                             <table id="datatable" class="table table-striped">

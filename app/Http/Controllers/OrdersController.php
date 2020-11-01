@@ -6,6 +6,8 @@ use App\Category;
 use App\Customer;
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
 {
@@ -16,8 +18,14 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
-        return view('admin.order.index', compact('orders'));
+        if (Auth::user()->role == "admin" || Auth::user()->role == "owner") {
+            $orders = Order::all();
+            return view('admin.order.index', compact('orders'));
+        }
+        if (Auth::user()->role == "Marketer") {
+            $orders = Order::where('marketing_id', Auth::id())->get();
+            return view('marketer.order-index', compact('orders'));
+        }
     }
 
     /**
@@ -40,13 +48,21 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'products' => 'required',
+            'sample' => 'required',
+            'desc' => 'nullable',
+        ]);
         $order = Order::create($request->all());
 
         $products = $request->input('products', []);
         $quantities = $request->input('quantities', []);
         for ($product = 0; $product < count($products); $product++) {
             if ($products[$product] != '') {
-                $order->categories()->attach($products[$product], ['quantity' => $quantities[$product]]);
+                $order->categories()->attach(
+                    $products[$product],
+                    ['quantity' => $quantities[$product]],
+                );
             }
         }
 
@@ -96,5 +112,25 @@ class OrdersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function action(Request $request)
+    {
+        if ($request->ajax()) {
+            if ($request->action == 'edit') {
+                $data = array(
+                    'status'    =>    $request->status,
+                );
+                DB::table('orders')
+                    ->where('id', $request->id)
+                    ->update($data);
+            }
+            if ($request->action == 'delete') {
+                DB::table('orders')
+                    ->where('id', $request->id)
+                    ->delete();
+            }
+            return response()->json($request);
+        }
     }
 }

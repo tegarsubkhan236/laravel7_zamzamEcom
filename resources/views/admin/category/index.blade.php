@@ -6,7 +6,16 @@
     <!-- MAIN CONTENT -->
     <div class="main-content">
         <div class="container-fluid">
-            <h3 class="page-title">Category</h3>
+            <div class="row">
+                <div class="col-md-10">
+                    <h3 class="page-title">Produk</h3>
+                </div>
+                @if (Auth::user()->role == "admin" || Auth::user()->role == "owner")
+                <div class="col-md-2">
+                    <a class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fa fa-check-circle"></i> Add Data</a>
+                </div>
+                @endif
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     @if (session('status'))
@@ -30,11 +39,6 @@
                     <!-- BASIC TABLE -->
                     <div class="panel">
                         <div class="panel-heading">
-                            <div class="col-md-10">
-                            </div>
-                            <div class="col-md-2">
-                                <a class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fa fa-check-circle"></i>Add Data</a>
-                            </div><br>
                         </div>
                         <div class="panel-body">
                             <table id="datatable" class="table table-striped">
@@ -44,7 +48,9 @@
                                         <th>Name</th>
                                         <th>Price</th>
                                         <th>Description</th>
+                                        @if (Auth::user()->role == "admin" || Auth::user()->role == "owner")
                                         <th style="text-align:center;">Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,6 +60,7 @@
                                         <td>{{$item->name}}</td>
                                         <td>{{$item->price}}</td>
                                         <td>{{$item->desc}}</td>
+                                        @if (Auth::user()->role == "admin" || Auth::user()->role == "owner")
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-info" id="edit-item" 
                                                 data-item-id="{{$item->id}}"
@@ -65,6 +72,7 @@
                                             {{-- <a href="#" type="button" class="btn btn-info"><span class="lnr lnr-pencil"></span></a> --}}
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><span class="lnr lnr-trash"></span></button>
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>

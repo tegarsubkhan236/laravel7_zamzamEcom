@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,15 +13,25 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-
-            'name' => 'fauzi',
-
-            'email' => 'fauzi@zgraphic.id',
-
-            'password' => bcrypt('12345678'),
-
-            'role' => 'admin',
-        ]);
+        User::create(
+            [
+                'name' => 'admin',
+                'email' => 'admin@zgraphic.com',
+                'password' => Hash::make('12345'),
+                'role' => 'admin',
+            ],
+            [
+                'name' => 'zamzam',
+                'email' => 'zamzam@zgraphic.com',
+                'password' => Hash::make('12345'),
+                'role' => 'owner',
+            ],
+            [
+                'name' => 'dummy marketer',
+                'email' => 'dummy_marketer@zgraphic.com',
+                'password' => Hash::make('12345'),
+                'role' => 'Marketer',
+            ]
+        );
     }
 }
